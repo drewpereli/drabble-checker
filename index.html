@@ -34,6 +34,13 @@
       border: 1px solid #66d;
     }
 
+    .ui-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
     #status {
       display: flex;
       align-items: center;
@@ -51,13 +58,57 @@
     #status.too-many {
       color: #f66;
     }
+
+    fieldset {
+      border: 1px solid gray;
+      border-radius: 0.25rem;
+      width: 12rem;
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+
+    fieldset input {
+      display: none;
+    }
+
+    fieldset label {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      place-content: center;
+      padding: 0.25rem 0.5rem;
+      color: #222;
+      cursor: pointer;
+    }
+
+    fieldset label[for="twabble-input"] {
+      border-left: 1px solid gray;
+    }
+
+    fieldset label.checked {
+      background-color: #66d;
+      color: #ddf;
+    }
   </style>
 </head>
 <body>
   <main>
     <section>
-      <div id="status" class="too-few">
-        <span id="count">0</span>/100 words
+      <div class="ui-bar">
+        <fieldset>
+          <label for="drabble-input" class="checked">
+            Drabble
+            <input value="drabble" name="content-type" id="drabble-input" type="radio">
+          </label>
+          <label for="twabble-input">
+            Twabble
+            <input value="twabble" name="content-type" id="twabble-input" type="radio">
+          </label>
+        </fieldset>
+        <div id="status" class="too-few">
+          <span id="count">0</span>/100&nbsp;<span id="unit">words</spn>
+        </div>
       </div>
       <textarea id="content" rows="10"></textarea>
     </section>
@@ -65,21 +116,46 @@
 </body>
 
 <script>
-  const content = document.getElementById('content');
+  const contentEl = document.getElementById('content');
   const statusEl = document.getElementById('status');
-  const count = document.getElementById('count');
+  const countEl = document.getElementById('count');
+  const unitEl = document.getElementById('unit');
+  const contentTypeInputs = document.querySelectorAll('input[name="content-type"]');
 
+  let contentType = 'drabble';
   let status = 'too-few';
 
-  content.addEventListener('input', () => {
-    const wordCount = content.value.split(/\s+/).filter(s => s).length;
-    count.innerText = wordCount;
+  contentTypeInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      input.parentElement.parentElement.querySelector('label.checked').classList.remove('checked');
+      input.parentElement.classList.add('checked');
+      contentType = input.value;
+      unitEl.innerText = contentType === 'drabble' ? 'words' : 'characters';
+      updateStatusAndCount();
+    });
+  });
+
+  contentEl.addEventListener('input', () => {
+    updateStatusAndCount();
+  });
+
+  function getWordCount(text) {
+    return text.split(/\s+/).filter(s => s).length;
+  }
+
+  function getCharCountExceptSpaces(text) {
+    return text.replace(/\s+/g, '').length;
+  }
+
+  function updateStatusAndCount() {
+    const count = contentType === 'drabble' ? getWordCount(contentEl.value) : getCharCountExceptSpaces(contentEl.value);
+    countEl.innerText = count;
 
     let newStatus;
 
-    if (wordCount < 100) {
+    if (count < 100) {
       newStatus = 'too-few';
-    } else if (wordCount > 100) {
+    } else if (count > 100) {
       newStatus = 'too-many';
     } else {
       newStatus = 'ok';
@@ -90,6 +166,6 @@
       statusEl.classList.add(newStatus);
       status = newStatus;
     }
-  });
+  }
 </script>
 </html>
