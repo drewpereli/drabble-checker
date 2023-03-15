@@ -249,6 +249,8 @@
     }
   });
 
+  unitEl.innerText = contentType === 'drabble' ? 'words' : 'characters';
+
 
   contentTypeInputs.forEach(input => {
     input.addEventListener('change', () => {
