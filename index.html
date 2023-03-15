@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +65,7 @@
     #status.ok {
       color: #6b6;
     }
-    
+
     #status.too-many {
       color: #f66;
     }
@@ -144,6 +145,7 @@
       0% {
         opacity: 1;
       }
+
       100% {
         opacity: 0;
       }
@@ -177,8 +179,10 @@
       height: 2rem;
       margin-right: 0.5rem;
     }
+
   </style>
 </head>
+
 <body>
   <main>
     <section class="top-bar">
@@ -204,9 +208,9 @@
           <span id="count">0</span>/100&nbsp;<span id="unit">words</spn>
         </div>
       </div>
-      
+
       <textarea id="content" rows="10"></textarea>
-      
+
       <div class="copy-btn-container">
         <span id="copy-message">Text copied to clipboard!</span>
         <button id="copy-btn">Copy to Clipboard</button>
@@ -306,7 +310,7 @@
 
   function debounce(fn, delay) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         fn(...args);
@@ -318,4 +322,5 @@
     localStorage.setItem(CONTENT_LS_KEY, contentEl.value);
   }, 500);
 </script>
+
 </html>
