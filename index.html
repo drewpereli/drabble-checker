@@ -70,12 +70,15 @@
     }
 
     fieldset {
-      border: 1px solid gray;
+      outline: 1px solid gray;
+      border: none;
       border-radius: 0.25rem;
       width: 12rem;
       display: flex;
       align-items: center;
       padding: 0;
+      margin: 0;
+      overflow: hidden;
     }
 
     fieldset input {
@@ -90,6 +93,10 @@
       padding: 0.25rem 0.5rem;
       color: #222;
       cursor: pointer;
+    }
+
+    fieldset label:hover {
+      background-color: #eef;
     }
 
     fieldset label[for="twabble-input"] {
@@ -121,6 +128,11 @@
       border-radius: 0.25rem;
       padding: 0.5rem 1rem;
       font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #copy-btn:hover {
+      background-color: #55c;
     }
 
     .fade-out {
