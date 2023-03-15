@@ -5,14 +5,61 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drabble Checker</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #content {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      resize: vertical;
+      margin-top: 0.25rem;
+    }
+
+    #content:focus {
+      outline: none;
+      border: 1px solid #66d;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .status.too-few {
+      color: gray;
+    }
+
+    .status.ok {
+      color: #6d6;
+    }
+    
+    .status.too-many {
+      color: #f66;
+    }
+  </style>
 </head>
 <body>
   <main>
     <section>
-      <div class="status">
+      <div class="status too-few">
         <span id="count">0</span>/100 words
       </div>
-      <textarea id="content" cols="30" rows="10"></textarea>
+      <textarea id="content" rows="10"></textarea>
     </section>
   </main>
 </body>
