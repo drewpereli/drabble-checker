@@ -7,6 +7,23 @@
   <title>Drabble Checker</title>
 </head>
 <body>
-  
+  <main>
+    <section>
+      <div class="status">
+        <span id="count">0</span>/100 words
+      </div>
+      <textarea id="content" cols="30" rows="10"></textarea>
+    </section>
+  </main>
 </body>
+
+<script>
+  const content = document.getElementById('content');
+  const count = document.getElementById('count');
+
+  content.addEventListener('input', () => {
+    const words = content.value.split(/\s+/).filter(s => s).length;
+    count.innerText = words;
+  });
+</script>
 </html>
