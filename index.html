@@ -52,7 +52,7 @@
     }
 
     #status.ok {
-      color: #6d6;
+      color: #6b6;
     }
     
     #status.too-many {
@@ -90,6 +90,42 @@
       background-color: #66d;
       color: #ddf;
     }
+
+    .copy-btn-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #copy-message {
+      color: #6b6;
+      font-size: 0.825rem;
+      margin-right: 0.5rem;
+      opacity: 0;
+    }
+
+    #copy-btn {
+      background-color: #66d;
+      color: #ddf;
+      border: none;
+      border-radius: 0.25rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+
+    .fade-out {
+      animation: fade-out 1s ease-in-out 2s;
+      animation-fill-mode: backwards;
+    }
+
+    @keyframes fade-out {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -110,7 +146,13 @@
           <span id="count">0</span>/100&nbsp;<span id="unit">words</spn>
         </div>
       </div>
+      
       <textarea id="content" rows="10"></textarea>
+      
+      <div class="copy-btn-container">
+        <span id="copy-message">Text copied to clipboard!</span>
+        <button id="copy-btn">Copy to Clipboard</button>
+      </div>
     </section>
   </main>
 </body>
@@ -121,6 +163,8 @@
   const countEl = document.getElementById('count');
   const unitEl = document.getElementById('unit');
   const contentTypeInputs = document.querySelectorAll('input[name="content-type"]');
+  const copyBtn = document.getElementById('copy-btn');
+  const copyMessage = document.getElementById('copy-message');
 
   let contentType = 'drabble';
   let status = 'too-few';
@@ -137,6 +181,18 @@
 
   contentEl.addEventListener('input', () => {
     updateStatusAndCount();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    contentEl.select();
+    contentEl.setSelectionRange(0, 99999); // For mobile devices
+    navigator.clipboard.writeText(contentEl.value);
+    window.getSelection().removeAllRanges();
+    copyMessage.classList.remove('fade-out');
+    setTimeout(() => {
+      copyMessage.classList.add('fade-out');
+    }, 1);
+
   });
 
   function getWordCount(text) {
