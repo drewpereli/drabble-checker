@@ -171,8 +171,27 @@
   const copyBtn = document.getElementById('copy-btn');
   const copyMessage = document.getElementById('copy-message');
 
-  let contentType = 'drabble';
+  const CONTENT_TYPE_LS_KEY = 'contentType';
+  const CONTENT_LS_KEY = 'content';
+
   let status = 'too-few';
+  let contentType = localStorage.getItem(CONTENT_TYPE_LS_KEY) || 'drabble';
+  const content = localStorage.getItem(CONTENT_LS_KEY) || '';
+
+  contentEl.value = content;
+
+  updateStatusAndCount();
+
+  contentTypeInputs.forEach(input => {
+    if (input.value === contentType) {
+      input.checked = true;
+      input.parentElement.classList.add('checked');
+    } else {
+      input.checked = false;
+      input.parentElement.classList.remove('checked');
+    }
+  });
+
 
   contentTypeInputs.forEach(input => {
     input.addEventListener('change', () => {
@@ -181,11 +200,14 @@
       contentType = input.value;
       unitEl.innerText = contentType === 'drabble' ? 'words' : 'characters';
       updateStatusAndCount();
+
+      localStorage.setItem(CONTENT_TYPE_LS_KEY, contentType);
     });
   });
 
   contentEl.addEventListener('input', () => {
     updateStatusAndCount();
+    saveContentDebounced();
   });
 
   copyBtn.addEventListener('click', () => {
@@ -228,5 +250,19 @@
       status = newStatus;
     }
   }
+
+  function debounce(fn, delay) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    }
+  }
+
+  const saveContentDebounced = debounce(() => {
+    localStorage.setItem(CONTENT_LS_KEY, contentEl.value);
+  }, 500);
 </script>
 </html>
