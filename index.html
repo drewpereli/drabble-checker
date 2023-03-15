@@ -21,13 +21,14 @@
 
     body {
       margin: 0;
-      padding: 1rem;
       font-family: 'Roboto', sans-serif;
     }
 
     .main-content {
       max-width: 40rem;
       margin: 0 auto;
+      padding: 0 1rem;
+      margin-top: 2rem
     }
 
     #content {
@@ -135,10 +136,46 @@
         opacity: 0;
       }
     }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      background-color: #f6f6f6;
+      box-shadow: 0px 1px 3px #ddd;
+    }
+
+    .top-bar a {
+      color: gray;
+      text-decoration: none;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .top-bar .header {
+      display: flex;
+      align-items: center;
+    }
+
+    .top-bar .header img {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 0.5rem;
+    }
   </style>
 </head>
 <body>
   <main>
+    <section class="top-bar">
+      <div class="header">
+        <img src="logo.webp" alt="logo">
+        <h1>Drabble Checker</h1>
+      </div>
+      <a href="https://www.drabblecast.org/" target="_blank">DRABBLECAST</a>
+    </section>
     <section class="main-content">
       <div class="ui-bar">
         <fieldset>
