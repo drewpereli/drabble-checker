@@ -42,7 +42,7 @@
 
     #content:focus {
       outline: none;
-      border: 1px solid #66d;
+      border: 1px solid #55c;
     }
 
     .ui-bar {
@@ -57,18 +57,27 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      font-size: 1.125rem;
     }
 
     #status.too-few {
-      color: gray;
+      color: #555;
     }
 
     #status.ok {
-      color: #6b6;
+      color: #018401;
     }
 
     #status.too-many {
-      color: #f66;
+      color: #E60000;
+    }
+
+    .check {
+      visibility: hidden;
+    }
+
+    .ok .check {
+      visibility: visible;
     }
 
     fieldset {
@@ -112,8 +121,8 @@
     }
 
     fieldset label.checked {
-      background-color: #66d;
-      color: #ddf;
+      background-color: #55c;
+      color: #eef;
     }
 
     .copy-btn-container {
@@ -124,15 +133,15 @@
     }
 
     #copy-message {
-      color: #6b6;
+      color: #018401;
       font-size: 0.825rem;
       margin-right: 0.5rem;
       opacity: 0;
     }
 
     #copy-btn {
-      background-color: #66d;
-      color: #ddf;
+      background-color: #55c;
+      color: #eef;
       border: none;
       border-radius: 0.25rem;
       padding: 0.5rem 1rem;
@@ -173,7 +182,7 @@
     }
 
     .top-bar a {
-      color: gray;
+      color: #555;
       text-decoration: none;
       margin-left: 1rem;
       font-size: 0.75rem;
@@ -229,11 +238,12 @@
           </label>
         </fieldset>
         <div id="status" class="too-few">
-          <span id="count">0</span>/100&nbsp;<span id="unit">words</spn>
+          <span class="check">✓&nbsp;</span>
+          <span id="count">0</span>/100&nbsp;<span id="unit">words</span>
         </div>
       </div>
 
-      <textarea id="content" rows="10"></textarea>
+      <textarea id="content" rows="10" aria-label="content"></textarea>
 
       <div class="copy-btn-container">
         <span id="copy-message">Text copied to clipboard!</span>
