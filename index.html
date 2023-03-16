@@ -71,9 +71,7 @@
     }
 
     fieldset {
-      outline: 1px solid gray;
       border: none;
-      border-radius: 0.25rem;
       width: 12rem;
       display: flex;
       align-items: center;
@@ -94,14 +92,22 @@
       padding: 0.25rem 0.5rem;
       color: #222;
       cursor: pointer;
+      border: 1px solid gray;
+    }
+
+    fieldset label:first-child {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    fieldset label:last-child {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      border-left: none;
     }
 
     fieldset label:hover {
       background-color: #eef;
-    }
-
-    fieldset label[for="twabble-input"] {
-      border-left: 1px solid gray;
     }
 
     fieldset label.checked {
